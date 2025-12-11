@@ -15,22 +15,27 @@ public class AvoidantBehavior implements BehaviorStrategy{
     private int mouseY = mouse.getY();
     private int mouseSize = mouse.getSize();
 
-    private int neighborRadius = 300; //(should be dynamic)
+    private int neighborRadius = 50; //(should be dynamic)
 
    @Override
     public Forces calculateForces(Boid boid, List<Boid> neighbors){
        Forces flockForces = flockBehavior.calculateForces(boid, neighbors);
+        Vector2D avoidMouse = avoidMouse(boid);
 
         Vector2D flockSeparation = flockForces.separation(); //calculateSeparation(boid, neighbors, getFlockWeights() );
-        Vector2D avoidMouse = avoidMouse(boid);
-        double x = avoidMouse.x() + flockSeparation.x();
-        double y = avoidMouse.y() + flockSeparation.y();
+      /*
+        double sepX = (avoidMouse.x() * 10 + flockSeparation.x()) / 11;
+        double sepY = (avoidMouse.y() * 10 + flockSeparation.y()) / 11;
+        Vector2D separation = new Vector2D(sepX, sepY);
+  */
+        double aligX = (avoidMouse.x() * 10 + flockForces.alignment().x()) / 11;
+        double aligY = (avoidMouse.y() * 10 + flockForces.alignment().y()) / 11;
+        Vector2D alignment =  new Vector2D(aligX, aligY);
 
-        Vector2D separation = new Vector2D(x, y);
-        Vector2D alignment =  flockForces.alignment();
+        Vector2D separation = flockSeparation;
+      //  Vector2D alignment = flockForces.alignment();
         Vector2D cohesion =  flockForces.cohesion();
 
-        
         return new Forces(separation, alignment, cohesion);
         //return new Forces(Vector2D.ZERO, Vector2D.ZERO, Vector2D.ZERO);
     }
@@ -94,9 +99,12 @@ public class AvoidantBehavior implements BehaviorStrategy{
             return Vector2D.ZERO;
         }
 
+        /*
         dx /= dist;
         dy /= dist;
-
+        
+        System.out.println("dx: " + dx + ", dy: " + dy);
+*/
         return new Vector2D(dx, dy);
     }
 

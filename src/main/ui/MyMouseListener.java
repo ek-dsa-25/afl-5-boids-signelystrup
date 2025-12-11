@@ -5,7 +5,7 @@ import java.awt.event.MouseEvent;
 
 public class MyMouseListener implements java.awt.event.MouseMotionListener{
     
-    private int size = 50;
+    private int size = 10;
     private int x, y = -size;
 
     @Override
