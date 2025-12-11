@@ -19,6 +19,8 @@ public class AvoidantBehavior implements BehaviorStrategy{
 
     private int neighborRadius = 50; //(should be dynamic)
 
+    private int counter = 0;
+    
    @Override
     public Forces calculateForces(Boid boid, List<Boid> neighbors){
        Forces flockForces = flockBehavior.calculateForces(boid, neighbors);
@@ -93,38 +95,25 @@ public class AvoidantBehavior implements BehaviorStrategy{
     }
 
     public Vector2D avoidMouse(Boid boid){
-       
-
-        double startX = boid.getX();
-        double startY = boid.getY();
-
-        double dirX = boid.getVx();
-        double dirY = boid.getVy();
-
-        double dx = boid.getX() + boid.getVx();
-        double dy = boid.getY() + boid.getVy();
-
-
-
-
-        double avoidanceVectorX = mouse.getX() - boid.getX();
-        double avoidanceVectorY = mouse.getY() - boid.getY();
+        double steerX = boid.getX() - mouse.getX() ;
+        double steerY = boid.getY() - mouse.getY() ;
 
         //normalize:
-        double dist = Math.sqrt(avoidanceVectorX * avoidanceVectorX + avoidanceVectorY + avoidanceVectorY);
-        avoidanceVectorX /= dist;
-        avoidanceVectorY /= dist;
+        double dist = Math.sqrt(steerX * steerX + steerY + steerY);
+        steerX /= dist;
+        steerY /= dist;
 
-
-        if (mouseHitBox.contains(dx, dy) || dist < 5){
-            boid.away = true;
+        if ( dist < 20  && counter < 20){
 
             //System.out.println("dx: " + dx + ", dy: " + dy);
             //System.out.println("avx: " + avoidanceVectorX + ", avy: " + avoidanceVectorY + ", a-distance: " + dist);
             //return new Vector2D(dx, dy);
-            return new Vector2D(avoidanceVectorX * 3, avoidanceVectorY * 3);
+            counter ++;
+            return new Vector2D(steerX * 3, steerY * 3);
         }
        
+        counter = 0;
+
         //boid.away = false;
 
         return Vector2D.ZERO;
