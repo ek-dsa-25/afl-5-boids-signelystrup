@@ -13,7 +13,7 @@ public class FlockBehavior implements BehaviorStrategy {
             return new Forces();
         }
 
-        FlockWeights weights = boid.getFlockWeights();
+        FlockWeights weights = getFlockWeights();
 
         Vector2D separation = calculateSeparation(boid, neighbors, weights);
         Vector2D alignment = calculateAlignment(boid, neighbors, weights);
@@ -143,4 +143,7 @@ public class FlockBehavior implements BehaviorStrategy {
         return Vector2D.ZERO;
     }
     
+    public FlockWeights getFlockWeights() {
+        return FlockWeights.standard();
+    }
 }

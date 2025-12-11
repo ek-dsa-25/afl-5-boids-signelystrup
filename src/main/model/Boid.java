@@ -3,9 +3,9 @@ package main.model;
 import java.awt.Graphics2D;
 import java.awt.geom.AffineTransform;
 import java.util.List;
+import main.behavior.AvoidantBehavior;
 import main.behavior.BehaviorStrategy;
 import main.behavior.FlockBehavior;
-import main.behavior.FlockWeights;
 import main.simulation.*;
 
 public class Boid {
@@ -16,7 +16,7 @@ public class Boid {
     private static final double MAX_SPEED = 2.0;
     private static final double MAX_FORCE = 0.03;
     private static final int BOID_SIZE = 8;
-    private final BehaviorStrategy flockBehavior = new FlockBehavior();
+    private BehaviorStrategy behaviorStrategy;
 
     public Boid(int id, double x, double y) {
         this(id, x, y, BoidType.STANDARD);
@@ -29,6 +29,14 @@ public class Boid {
         this.type = type;
         this.vx = (Math.random() - 0.5) * 2;
         this.vy = (Math.random() - 0.5) * 2;
+
+        if (type == BoidType.AVOIDANT){
+            behaviorStrategy = new AvoidantBehavior();
+        } else {
+            behaviorStrategy = new FlockBehavior();
+        }
+
+
     }
 
     public void update(List<Boid> neighbors, int width, int height) {
@@ -90,11 +98,8 @@ public class Boid {
     }
 
     public Forces calculateForces(List<Boid> neighbors) {
-        return flockBehavior.calculateForces(this, neighbors);
-
+        return behaviorStrategy.calculateForces(this, neighbors);
     }
 
-    public FlockWeights getFlockWeights() {
-        return FlockWeights.standard();
-    }
+
 }

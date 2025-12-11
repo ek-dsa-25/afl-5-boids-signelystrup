@@ -1,10 +1,10 @@
 package main.simulation;
 
+import java.util.ArrayList;
+import java.util.List;
 import main.model.Boid;
 import main.model.BoidType;
 import main.spatial.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class FlockSimulation {
     private final List<Boid> boids;
@@ -37,6 +37,8 @@ public class FlockSimulation {
     }
 
     public void setBoidCount(int count) {
+        addBoid(BoidType.AVOIDANT);
+
         while (boids.size() < count) {
             addBoid();
         }

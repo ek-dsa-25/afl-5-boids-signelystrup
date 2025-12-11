@@ -1,13 +1,13 @@
 package main.ui;
 
-import main.model.Boid;
-import main.simulation.FlockSimulation;
-import main.spatial.*;
-import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.List;
+import javax.swing.*;
+import main.model.Boid;
+import main.simulation.FlockSimulation;
+import main.spatial.*;
 
 public class BoidPanel extends JPanel implements ActionListener {
     private final FlockSimulation simulation;
