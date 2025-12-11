@@ -2,11 +2,13 @@ package main.ui;
 
 import java.awt.*;
 import java.awt.event.MouseEvent;
+import java.awt.geom.Rectangle2D;
 
 public class MyMouseListener implements java.awt.event.MouseMotionListener{
     
-    private int size = 10;
+    private int size = 50;
     private int x, y = -size;
+    private Rectangle2D hitBox = new Rectangle(x ,y , size, size);
 
     @Override
     public void mouseMoved(MouseEvent e){
@@ -15,11 +17,14 @@ public class MyMouseListener implements java.awt.event.MouseMotionListener{
     }
 
     @Override
-    public void mouseDragged(MouseEvent e){}
+    public void mouseDragged(MouseEvent e){
+                x = e.getX();
+        y = e.getY();
+    }
 
     public void draw(Graphics2D g2){
-        g2.setColor(Color.BLUE);
-        g2.fillRect(x - size/2, y -size/2, size, size);
+       // g2.setColor(Color.BLUE);
+        //g2.fillRect(x , y, size, size);
     }
 
     public int getX(){
@@ -32,5 +37,9 @@ public class MyMouseListener implements java.awt.event.MouseMotionListener{
 
     public int getSize(){
         return size;
+    }
+
+    public Rectangle2D getHitBox(){
+        return hitBox;
     }
 }
