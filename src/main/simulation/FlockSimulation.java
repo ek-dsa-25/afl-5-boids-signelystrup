@@ -41,10 +41,10 @@ public class FlockSimulation {
         Random random = new Random();
 
         while (boids.size() < count) {
-            if (random.nextInt(0,10) != 9){
+            if (random.nextInt(2) == 1){ //50/50 normal flocking and avoidance
                 addBoid(BoidType.AVOIDANT);
             }else{
-            addBoid();
+                addBoid();
             }
         }
         while (boids.size() > count) {

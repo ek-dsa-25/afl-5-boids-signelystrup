@@ -19,7 +19,6 @@ public class Boid {
     private static final double MAX_FORCE = 0.03;
     private static final int BOID_SIZE = 8;
     private BehaviorStrategy behaviorStrategy;
-    public boolean away = false;
 
     public Boid(int id, double x, double y) {
         this(id, x, y, BoidType.STANDARD);
@@ -35,7 +34,6 @@ public class Boid {
 
         if (type == BoidType.AVOIDANT){
             behaviorStrategy = new AvoidantBehavior();
-
         } else {
             behaviorStrategy = new FlockBehavior();
         }
@@ -74,10 +72,6 @@ public class Boid {
 
     public void render(Graphics2D g2d) {
         g2d.setColor(type.getColor());
-
-        if (away){
-            g2d.setColor(Color.PINK);
-        }
         
         double angle = Math.atan2(vy, vx);
         AffineTransform oldTransform = g2d.getTransform();
