@@ -2,6 +2,7 @@ package main.simulation;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import main.model.Boid;
 import main.model.BoidType;
 import main.spatial.*;
@@ -37,10 +38,14 @@ public class FlockSimulation {
     }
 
     public void setBoidCount(int count) {
-        addBoid(BoidType.AVOIDANT);
+        Random random = new Random();
 
         while (boids.size() < count) {
+            if (random.nextInt(0,10) == 9){
+                addBoid(BoidType.AVOIDANT);
+            }else{
             addBoid();
+            }
         }
         while (boids.size() > count) {
             boids.remove(boids.size() - 1);

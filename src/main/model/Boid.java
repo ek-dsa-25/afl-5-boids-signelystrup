@@ -8,6 +8,7 @@ import main.behavior.BehaviorStrategy;
 import main.behavior.FlockBehavior;
 import main.simulation.*;
 
+
 public class Boid {
     private double x, y;
     private double vx, vy;

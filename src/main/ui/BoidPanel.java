@@ -14,6 +14,8 @@ public class BoidPanel extends JPanel implements ActionListener {
     private final Timer animationTimer;
     private boolean running = false;
     
+    public static final MyMouseListener mouse = new MyMouseListener();
+
     private final JSlider boidCountSlider;
     private final JSlider radiusSlider;
     private final JButton playPauseButton;
@@ -50,11 +52,8 @@ public class BoidPanel extends JPanel implements ActionListener {
         
         simulation = new FlockSimulation(PANEL_WIDTH, PANEL_HEIGHT - CONTROL_HEIGHT);
         simulation.setBoidCount(100);
-        
-        MyMouseListener ml = new MyMouseListener();
-        addMouseMotionListener(ml);
-        setFocusable(true);
-        System.out.println(hasFocus());
+         
+        addMouseMotionListener(mouse);
 
         animationTimer = new Timer(16, this);
         

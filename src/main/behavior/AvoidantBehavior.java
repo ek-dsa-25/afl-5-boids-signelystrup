@@ -4,10 +4,13 @@ import java.util.List;
 import main.model.Boid;
 import main.simulation.Forces;
 import main.simulation.Vector2D;
+import main.ui.BoidPanel;
+import main.ui.MyMouseListener;
 
 public class AvoidantBehavior implements BehaviorStrategy{
 
-    FlockBehavior flockBehavior = new FlockBehavior();
+    private FlockBehavior flockBehavior = new FlockBehavior();
+    private static MyMouseListener mouse =  BoidPanel.mouse;
 
    @Override
     public Forces calculateForces(Boid boid, List<Boid> neighbors){
@@ -20,7 +23,8 @@ public class AvoidantBehavior implements BehaviorStrategy{
         //return new Forces(separation, alignment, cohesion);
         return new Forces(Vector2D.ZERO, Vector2D.ZERO, Vector2D.ZERO);
     }
-/*
+
+
     private Vector2D calculateSeparation(Boid boid, List<Boid> neighbors, FlockWeights weights) {
         double steerX = 0, steerY = 0;
         int count = 0;
@@ -60,10 +64,10 @@ public class AvoidantBehavior implements BehaviorStrategy{
             }
         }
 
+
+
         return new Vector2D(steerX * weights.separation(), steerY * weights.separation());
     }
-    
-*/
 
     public FlockWeights getFlockWeights() {
         return FlockWeights.standard();
