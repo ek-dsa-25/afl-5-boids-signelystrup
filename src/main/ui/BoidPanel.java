@@ -51,6 +51,11 @@ public class BoidPanel extends JPanel implements ActionListener {
         simulation = new FlockSimulation(PANEL_WIDTH, PANEL_HEIGHT - CONTROL_HEIGHT);
         simulation.setBoidCount(100);
         
+        MyMouseListener ml = new MyMouseListener();
+        addMouseMotionListener(ml);
+        setFocusable(true);
+        System.out.println(hasFocus());
+
         animationTimer = new Timer(16, this);
         
         boidCountSlider = new JSlider(10, 5000, 100);
@@ -141,6 +146,9 @@ public class BoidPanel extends JPanel implements ActionListener {
             boid.render(g2d);
         }
         
+        MyMouseListener ml = (MyMouseListener)getMouseMotionListeners()[0];
+        ml.draw(g2d);
+
         g2d.dispose();
     }
 }
